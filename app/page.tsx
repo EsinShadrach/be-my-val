@@ -9,33 +9,31 @@ const yesText = [
   "Yes",
   "Yes, I will be your Valentine",
   "I'll be very sad if you don't say yes",
-  "You made me the happiest!",
+  "You're my Valentine! 💖",
 ];
-
-const finalText = "You're my Valentine! 💖"; // New text for when 'Yes' is clicked
 
 export default function Home() {
   const [selectedYes, setSelectedYes] = useState(0);
   const [noSize, setNoSize] = useState(100);
   const [hearts, setHearts] = useState<number[]>([]);
-  const [gifIndex, setGifIndex] = useState(0); // Track GIF selection
-  const [buttonText, setButtonText] = useState(yesText[0]); // State to control the button text
+  const [gifIndex, setGifIndex] = useState(0);
 
   const handleNoClick = () => {
     setNoSize((prev) => (prev > 20 ? prev - 20 : prev));
-    setSelectedYes((prev) => (prev + 1) % yesText.length);
+    setSelectedYes((prev) => {
+      return (prev + 1) % yesText.length;
+    });
   };
 
   const handleYesClick = () => {
     setHearts((prev) => [...prev, ...Array(10).fill(0)]);
-    setSelectedYes(3); // Change to the final message
-    setGifIndex(1); // Show the second GIF
-    setButtonText(finalText); // Change the text after "Yes" is clicked
+    setSelectedYes(3);
+    setGifIndex(1);
   };
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setHearts((prev) => prev.slice(1)); // Remove hearts over time
+      setHearts((prev) => prev.slice(1));
     }, 500);
     return () => clearInterval(interval);
   }, []);
@@ -48,7 +46,7 @@ export default function Home() {
       </h1>
       <p className="text-xl text-gray-700">
         Candy is sweet, and so are you. Life feels brighter with everything you
-        do. So here's my question, bold yet true —
+        do. So here&apos;s my question, bold yet true —
         <strong> Will you be my Valentine too?</strong>
       </p>
       <div className="flex mt-12 gap-3">
@@ -63,7 +61,7 @@ export default function Home() {
           className="w-full bg-rose-600 p-2.5 rounded-lg text-green-100 active:scale-95 transition-all duration-300 whitespace-nowrap text-ellipsis"
           onClick={handleYesClick}
         >
-          {buttonText}
+          {yesText[selectedYes]}
         </button>
       </div>
 
