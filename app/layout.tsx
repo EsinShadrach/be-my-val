@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Analytics } from "@vercel/analytics/react";
 import { Courgette } from "next/font/google";
 import "./globals.css";
 
@@ -19,7 +20,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="bg-rose-200">
-      <body className={`${geistSans.className}`}>{children}</body>
+      <body className={`${geistSans.className}`}>
+        <Analytics />
+        {children}
+      </body>
     </html>
   );
 }
